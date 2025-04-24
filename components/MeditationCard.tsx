@@ -63,7 +63,7 @@ export default function MeditationCard({ meditation, featured = false }: Meditat
       >
         <Heart 
           fill={favorite ? theme.accent : 'none'}
-          color={favorite ? theme.accent : theme.text}
+          color={theme.accent}
           size={20}
         />
       </TouchableOpacity>
@@ -91,7 +91,7 @@ export default function MeditationCard({ meditation, featured = false }: Meditat
             <View 
               style={[
                 styles.categoryBadge,
-                { backgroundColor: theme.secondary }
+                { backgroundColor: theme.accent }
               ]}
             >
               <Text 
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: Spacing.sm,
     right: Spacing.sm,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: 20,
     width: 36,
     height: 36,

@@ -30,20 +30,13 @@ export function useAudioPlayer(audioUri: string | null) {
         await sound.unloadAsync();
       }
 
-      // Configure audio mode based on platform
-      if (Platform.OS === 'web') {
-        await Audio.setAudioModeAsync({
-          playsInSilentModeIOS: true,
-          staysActiveInBackground: false,
-          shouldDuckAndroid: true,
-        });
-      } else {
-        await Audio.setAudioModeAsync({
-          playsInSilentModeIOS: true,
-          staysActiveInBackground: true,
-          shouldDuckAndroid: true,
-        });
-      }
+      // Configure audio mode
+      await Audio.setAudioModeAsync({
+        playsInSilentModeIOS: true,
+        staysActiveInBackground: true,
+        shouldDuckAndroid: true,
+        playThroughEarpieceAndroid: false
+      });
       
       const { sound: newSound } = await Audio.Sound.createAsync(
         { uri: audioUri },
@@ -52,8 +45,7 @@ export function useAudioPlayer(audioUri: string | null) {
           progressUpdateIntervalMillis: 100,
           positionMillis: 0,
         },
-        onPlaybackStatusUpdate,
-        true // downloadFirst for better web compatibility
+        onPlaybackStatusUpdate
       );
       
       setSound(newSound);

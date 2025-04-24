@@ -57,17 +57,15 @@ export default function DiscoverScreen() {
               style={[
                 styles.categoryButton,
                 selectedCategory === category.id 
-                  ? { backgroundColor: theme.primary } 
-                  : { backgroundColor: theme.secondaryLight }
+                  ? { backgroundColor: theme.accent } 
+                  : { backgroundColor: theme.secondary }
               ]}
               onPress={() => handleCategoryPress(category.id)}
             >
               <Text 
                 style={[
                   styles.categoryText,
-                  selectedCategory === category.id 
-                    ? { color: 'white' } 
-                    : { color: theme.primaryDark }
+                  { color: '#fff' }
                 ]}
               >
                 {category.name}
@@ -117,6 +115,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.md,
     borderRadius: 20,
     marginRight: Spacing.sm,
+    elevation: 2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   categoryText: {
     fontSize: Typography.fontSizes.sm,

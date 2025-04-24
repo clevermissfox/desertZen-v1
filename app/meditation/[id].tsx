@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, StatusBar, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { useTheme } from '../../hooks/useTheme';
 import { AudioPlayerControls } from '../../components/AudioPlayerControls';
@@ -8,7 +8,6 @@ import Spacing from '../../constants/Spacing';
 import Typography from '../../constants/Typography';
 import { ArrowLeft, Clock } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function MeditationScreen() {
   const { id } = useLocalSearchParams();
@@ -19,7 +18,6 @@ export default function MeditationScreen() {
   
   useEffect(() => {
     if (!meditation) {
-      // If meditation not found, go back
       router.back();
     }
   }, [meditation, router]);
@@ -44,13 +42,17 @@ export default function MeditationScreen() {
             colors={['rgba(0,0,0,0.7)', 'transparent', 'rgba(0,0,0,0.7)']}
             style={styles.gradient}
           />
-          <TouchableOpacity 
-            style={styles.backButton}
-            onPress={() => router.back()}
-          >
-            <ArrowLeft color="white" size={24} />
-          </TouchableOpacity>
         </View>
+
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => router.back()}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
+          <View style={styles.backButtonInner}>
+            <ArrowLeft color="white" size={24} />
+          </View>
+        </TouchableOpacity>
         
         <ScrollView style={styles.contentContainer}>
           <View style={styles.headerContainer}>
@@ -59,32 +61,34 @@ export default function MeditationScreen() {
             </Text>
             
             <View style={styles.metaContainer}>
-              <View 
-                style={[
-                  styles.categoryBadge,
-                  { backgroundColor: theme.secondaryLight }
-                ]}
-              >
-                <Text 
+              <View style={styles.metaRow}>
+                <View 
                   style={[
-                    styles.categoryText,
-                    { color: theme.primaryDark }
+                    styles.categoryBadge,
+                    { backgroundColor: theme.secondaryLight }
                   ]}
                 >
-                  {meditation.category.replace(/-/g, ' ')}
-                </Text>
-              </View>
-              
-              <View style={styles.lengthContainer}>
-                <Clock size={14} color={theme.textTertiary} />
-                <Text 
-                  style={[
-                    styles.lengthText,
-                    { color: theme.textTertiary }
-                  ]}
-                >
-                  {meditation.length}
-                </Text>
+                  <Text 
+                    style={[
+                      styles.categoryText,
+                      { color: theme.primaryDark }
+                    ]}
+                  >
+                    {meditation.category.replace(/-/g, ' ')}
+                  </Text>
+                </View>
+                
+                <View style={styles.lengthContainer}>
+                  <Clock size={14} color={theme.textTertiary} />
+                  <Text 
+                    style={[
+                      styles.lengthText,
+                      { color: theme.textTertiary }
+                    ]}
+                  >
+                    {meditation.length}
+                  </Text>
+                </View>
               </View>
             </View>
             
@@ -142,8 +146,11 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 48,
+    top: 20,
     left: 16,
+    zIndex: 10,
+  },
+  backButtonInner: {
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -164,29 +171,31 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   metaContainer: {
+    marginBottom: Spacing.md,
+  },
+  metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: Spacing.md,
+    gap: Spacing.sm,
   },
   categoryBadge: {
     borderRadius: 12,
     paddingHorizontal: Spacing.sm,
-    paddingVertical: 2,
-    marginRight: Spacing.md,
+    paddingVertical: 4,
   },
   categoryText: {
-    fontSize: Typography.fontSizes.xs,
+    fontSize: Typography.fontSizes.sm,
     fontFamily: 'Inter-Medium',
     textTransform: 'capitalize',
   },
   lengthContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 4,
   },
   lengthText: {
     fontSize: Typography.fontSizes.sm,
     fontFamily: 'Inter-Regular',
-    marginLeft: 4,
   },
   description: {
     fontSize: Typography.fontSizes.md,

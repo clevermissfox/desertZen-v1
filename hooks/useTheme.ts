@@ -1,5 +1,7 @@
 import { useColorScheme } from 'react-native';
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Colors from '../constants/Colors';
 
 interface ThemeState {
@@ -7,10 +9,18 @@ interface ThemeState {
   setIsDark: (isDark: boolean) => void;
 }
 
-const useThemeStore = create<ThemeState>((set) => ({
-  isDark: null,
-  setIsDark: (isDark) => set({ isDark }),
-}));
+const useThemeStore = create<ThemeState>()(
+  persist(
+    (set) => ({
+      isDark: null,
+      setIsDark: (isDark) => set({ isDark }),
+    }),
+    {
+      name: 'theme-storage',
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
+);
 
 export function useTheme() {
   const systemColorScheme = useColorScheme();

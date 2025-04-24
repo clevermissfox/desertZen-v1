@@ -12,7 +12,7 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ value, onChangeText, placeholder = 'Search meditations...' }: SearchBarProps) {
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
   
   const handleClear = () => {
     onChangeText('');
@@ -22,7 +22,10 @@ export default function SearchBar({ value, onChangeText, placeholder = 'Search m
     <View
       style={[
         styles.container,
-        { backgroundColor: theme.secondaryLight, borderColor: theme.border }
+        { 
+          backgroundColor: isDark ? theme.secondaryLight : '#F1F5F9',
+          borderColor: theme.border 
+        }
       ]}
     >
       <Search size={20} color={theme.textSecondary} style={styles.icon} />

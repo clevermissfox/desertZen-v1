@@ -7,7 +7,7 @@ import Typography from '../../constants/Typography';
 import { User, Bell, Moon, Volume2, Clock, Download, Settings, ChevronRight } from 'lucide-react-native';
 
 export default function ProfileScreen() {
-  const { theme, isDark } = useTheme();
+  const { theme, isDark, setTheme } = useTheme();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [autoDownloadEnabled, setAutoDownloadEnabled] = useState(false);
   
@@ -30,8 +30,22 @@ export default function ProfileScreen() {
           <Switch
             value={toggleValue}
             onValueChange={onToggleChange}
-            trackColor={{ false: theme.border, true: theme.primaryLight }}
-            thumbColor={toggleValue ? theme.primary : '#f4f3f4'}
+            trackColor={{ 
+              false: isDark ? theme.border : '#D1D5DB',
+              true: theme.accent 
+            }}
+            thumbColor={Platform.select({
+              web: toggleValue ? '#ffffff' : isDark ? '#ffffff' : '#F3F4F6',
+              default: isDark ? '#ffffff' : toggleValue ? '#ffffff' : '#F3F4F6'
+            })}
+            ios_backgroundColor={isDark ? theme.border : '#D1D5DB'}
+            style={Platform.select({
+              web: {
+                opacity: 1,
+                transform: [{scale: 0.8}]
+              },
+              default: {}
+            })}
           />
         ) : (
           <ChevronRight size={20} color={theme.textTertiary} />
@@ -118,7 +132,7 @@ export default function ProfileScreen() {
             title="Dark Mode"
             showToggle={true}
             toggleValue={isDark}
-            onToggleChange={() => {}}
+            onToggleChange={(value) => setTheme(value)}
             onPress={() => {}}
           />
           

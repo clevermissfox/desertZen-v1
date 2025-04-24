@@ -9,7 +9,7 @@ import Spacing from '../../constants/Spacing';
 import Typography from '../../constants/Typography';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ArrowLeft } from 'lucide-react-native';
-import { Meditation } from '../../types/Meditation';
+import { Meditation, MeditationLength } from '../../types/Meditation';
 
 export default function CategoryScreen() {
   const { id } = useLocalSearchParams();
@@ -24,60 +24,63 @@ export default function CategoryScreen() {
     return null;
   }
 
-  const renderItem = ({ item }: { item: Meditation }) => (
-    <MeditationCard meditation={item} />
+  // Get unique lengths from actual meditations
+  const availableLengths = Array.from(new Set(meditations.map(m => m.length))) as MeditationLength[];
+
+  const renderItem = ({ item, index }: { item: Meditation; index: number }) => (
+    <View style={[
+      styles.meditationCardContainer,
+      index % 2 === 0 ? { paddingRight: Spacing.xs } : { paddingLeft: Spacing.xs }
+    ]}>
+      <MeditationCard meditation={item} />
+    </View>
   );
 
   return (
     <>
-      <Stack.Screen 
-        options={{ 
-          title: category.name,
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()}>
-              <ArrowLeft color={theme.text} size={24} />
-            </TouchableOpacity>
-          ),
-          headerStyle: {
-            backgroundColor: theme.background,
-          },
-          headerTintColor: theme.text,
-          headerShadowVisible: false,
-        }} 
-      />
+      <Stack.Screen options={{ headerShown: false }} />
       
       <View style={[styles.container, { backgroundColor: theme.background }]}>
-        <View style={styles.headerContainer}>
-          <Text style={[styles.headerTitle, { color: theme.text }]}>
-            {category.name}
-          </Text>
-          <Text style={[styles.headerDescription, { color: theme.textSecondary }]}>
-            {category.description}
-          </Text>
+        <View style={[styles.header, { backgroundColor: theme.background }]}>
+          <TouchableOpacity 
+            style={styles.backButton}
+            onPress={() => router.back()}
+          >
+            <ArrowLeft color={theme.text} size={24} />
+          </TouchableOpacity>
           
-          <View style={styles.lengthsContainer}>
-            <Text style={[styles.lengthsTitle, { color: theme.text }]}>
-              Available Durations:
+          <View style={styles.headerContent}>
+            <Text style={[styles.headerTitle, { color: theme.text }]}>
+              {category.name}
             </Text>
-            <View style={styles.lengthBadgesContainer}>
-              {category.availableLengths.map((length, index) => (
-                <View 
-                  key={index} 
-                  style={[
-                    styles.lengthBadge,
-                    { backgroundColor: theme.secondaryLight }
-                  ]}
-                >
-                  <Text 
+            <Text style={[styles.headerDescription, { color: theme.textSecondary }]}>
+              {category.description}
+            </Text>
+            
+            <View style={styles.lengthsContainer}>
+              <Text style={[styles.lengthsTitle, { color: theme.text }]}>
+                Available Durations:
+              </Text>
+              <View style={styles.lengthBadgesContainer}>
+                {availableLengths.map((length, index) => (
+                  <View 
+                    key={index} 
                     style={[
-                      styles.lengthText,
-                      { color: theme.primaryDark }
+                      styles.lengthBadge,
+                      { backgroundColor: theme.secondary }
                     ]}
                   >
-                    {length}
-                  </Text>
-                </View>
-              ))}
+                    <Text 
+                      style={[
+                        styles.lengthText,
+                        { color: '#fff' }
+                      ]}
+                    >
+                      {length}
+                    </Text>
+                  </View>
+                ))}
+              </View>
             </View>
           </View>
         </View>
@@ -94,6 +97,7 @@ export default function CategoryScreen() {
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.listContent}
+            numColumns={2}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={
               <View style={styles.emptyContainer}>
@@ -113,8 +117,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  headerContainer: {
-    padding: Spacing.md,
+  header: {
+    paddingTop: 60,
+    paddingHorizontal: Spacing.md,
+    paddingBottom: Spacing.lg,
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: Spacing.sm,
+  },
+  headerContent: {
+    paddingTop: Spacing.sm,
   },
   headerTitle: {
     fontSize: Typography.fontSizes.xxl,
@@ -138,13 +155,12 @@ const styles = StyleSheet.create({
   lengthBadgesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    gap: Spacing.sm,
   },
   lengthBadge: {
     borderRadius: 12,
     paddingHorizontal: Spacing.sm,
     paddingVertical: 4,
-    marginRight: Spacing.sm,
-    marginBottom: Spacing.sm,
   },
   lengthText: {
     fontSize: Typography.fontSizes.sm,
@@ -165,6 +181,10 @@ const styles = StyleSheet.create({
   },
   listContent: {
     paddingBottom: Spacing.lg,
+  },
+  meditationCardContainer: {
+    width: '50%',
+    marginBottom: Spacing.md,
   },
   emptyContainer: {
     padding: Spacing.lg,
