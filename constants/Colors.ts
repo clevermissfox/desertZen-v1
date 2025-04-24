@@ -1,0 +1,48 @@
+export const lightTheme = {
+  primary: '#f07941',
+  primaryLight: '#f39467',
+  primaryDark: '#d86327',
+  secondary: '#22394f',
+  secondaryLight: '#2d4b6a',
+  secondaryDark: '#182736',
+  accent: '#f07941',
+  accentLight: '#f39467',
+  accentDark: '#d86327',
+  background: '#FEFBF6',
+  card: '#FFFFFF',
+  text: '#1E1E1E',
+  textSecondary: '#4A4A4A',
+  textTertiary: '#757575',
+  border: '#E0E0E0',
+  notification: '#FF8C42',
+  success: '#4CAF50',
+  error: '#F44336',
+  warning: '#FFC107',
+};
+
+export const darkTheme = {
+  primary: '#f07941',
+  primaryLight: '#f39467',
+  primaryDark: '#d86327',
+  secondary: '#22394f',
+  secondaryLight: '#2d4b6a',
+  secondaryDark: '#182736',
+  accent: '#f07941',
+  accentLight: '#f39467',
+  accentDark: '#d86327',
+  background: '#121212',
+  card: '#1E1E1E',
+  text: '#F5F5F5',
+  textSecondary: '#BDBDBD',
+  textTertiary: '#9E9E9E',
+  border: '#333333',
+  notification: '#FF8C42',
+  success: '#4CAF50',
+  error: '#F44336',
+  warning: '#FFC107',
+};
+
+export default {
+  light: lightTheme,
+  dark: darkTheme,
+};
