@@ -6,6 +6,7 @@ import { useTheme } from '../hooks/useTheme';
 import Spacing from '../constants/Spacing';
 import Typography from '../constants/Typography';
 import { Category } from '../types/Meditation';
+import { getMeditationsByCategory } from '../data/meditations';
 
 interface CategoryCardProps {
   category: Category;
@@ -14,6 +15,12 @@ interface CategoryCardProps {
 export default function CategoryCard({ category }: CategoryCardProps) {
   const router = useRouter();
   const { theme } = useTheme();
+  
+  // Get actual meditations for this category
+  const categoryMeditations = getMeditationsByCategory(category.id);
+  
+  // Get unique lengths from actual meditations
+  const availableLengths = Array.from(new Set(categoryMeditations.map(m => m.length)));
   
   const getIcon = () => {
     switch (category.iconName) {
@@ -68,7 +75,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
           {category.description}
         </Text>
         <View style={styles.lengthsContainer}>
-          {category.availableLengths.map((length, index) => (
+          {availableLengths.map((length, index) => (
             <View 
               key={index} 
               style={[

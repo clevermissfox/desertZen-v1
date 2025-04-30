@@ -17,8 +17,13 @@ export default function FavoritesScreen() {
     meditation => favorites.includes(meditation.id)
   );
 
-  const renderItem = ({ item }: { item: Meditation }) => (
-    <MeditationCard meditation={item} />
+  const renderItem = ({ item, index }: { item: Meditation; index: number }) => (
+    <View style={[
+      styles.meditationCardContainer,
+      index % 2 === 0 ? { paddingRight: Spacing.xs } : { paddingLeft: Spacing.xs }
+    ]}>
+      <MeditationCard meditation={item} />
+    </View>
   );
 
   const EmptyFavorites = () => (
@@ -59,6 +64,7 @@ export default function FavoritesScreen() {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
+        numColumns={2}
         ListEmptyComponent={EmptyFavorites}
         showsVerticalScrollIndicator={false}
       />
@@ -93,6 +99,10 @@ const styles = StyleSheet.create({
   },
   listContent: {
     padding: Spacing.md,
+  },
+  meditationCardContainer: {
+    width: '50%',
+    marginBottom: Spacing.md,
   },
   emptyContainer: {
     flex: 1,

@@ -6,13 +6,15 @@ import { AudioPlayerControls } from '../../components/AudioPlayerControls';
 import { getMeditationById } from '../../data/meditations';
 import Spacing from '../../constants/Spacing';
 import Typography from '../../constants/Typography';
-import { ArrowLeft, Clock } from 'lucide-react-native';
+import { ArrowLeft, Clock, Heart } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useFavoriteMeditations } from '../../hooks/useFavoriteMeditations';
 
 export default function MeditationScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   const { theme } = useTheme();
+  const { isFavorite, addFavorite, removeFavorite } = useFavoriteMeditations();
   
   const meditation = getMeditationById(id as string);
   
@@ -25,6 +27,16 @@ export default function MeditationScreen() {
   if (!meditation) {
     return null;
   }
+
+  const favorite = isFavorite(meditation.id);
+  
+  const toggleFavorite = () => {
+    if (favorite) {
+      removeFavorite(meditation.id);
+    } else {
+      addFavorite(meditation.id);
+    }
+  };
 
   return (
     <>
@@ -42,54 +54,64 @@ export default function MeditationScreen() {
             colors={['rgba(0,0,0,0.7)', 'transparent', 'rgba(0,0,0,0.7)']}
             style={styles.gradient}
           />
+          <TouchableOpacity 
+            style={styles.backButton}
+            onPress={() => router.back()}
+          >
+            <View style={styles.buttonInner}>
+              <ArrowLeft color="white" size={24} />
+            </View>
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity 
-          style={styles.backButton}
-          onPress={() => router.back()}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-        >
-          <View style={styles.backButtonInner}>
-            <ArrowLeft color="white" size={24} />
-          </View>
-        </TouchableOpacity>
         
         <ScrollView style={styles.contentContainer}>
           <View style={styles.headerContainer}>
-            <Text style={[styles.title, { color: theme.text }]}>
-              {meditation.title}
-            </Text>
-            
-            <View style={styles.metaContainer}>
-              <View style={styles.metaRow}>
-                <View 
-                  style={[
-                    styles.categoryBadge,
-                    { backgroundColor: theme.secondaryLight }
-                  ]}
-                >
-                  <Text 
+            <View style={styles.titleRow}>
+              <View style={styles.titleContainer}>
+                <Text style={[styles.title, { color: theme.text }]}>
+                  {meditation.title}
+                </Text>
+                <View style={styles.metaRow}>
+                  <View 
                     style={[
-                      styles.categoryText,
-                      { color: theme.primaryDark }
+                      styles.categoryBadge,
+                      { backgroundColor: theme.secondary }
                     ]}
                   >
-                    {meditation.category.replace(/-/g, ' ')}
-                  </Text>
-                </View>
-                
-                <View style={styles.lengthContainer}>
-                  <Clock size={14} color={theme.textTertiary} />
-                  <Text 
-                    style={[
-                      styles.lengthText,
-                      { color: theme.textTertiary }
-                    ]}
-                  >
-                    {meditation.length}
-                  </Text>
+                    <Text 
+                      style={[
+                        styles.categoryText,
+                        { color: '#fff' }
+                      ]}
+                    >
+                      {meditation.category.replace(/-/g, ' ')}
+                    </Text>
+                  </View>
+                  
+                  <View style={styles.lengthContainer}>
+                    <Clock size={14} color={theme.textTertiary} />
+                    <Text 
+                      style={[
+                        styles.lengthText,
+                        { color: theme.textTertiary }
+                      ]}
+                    >
+                      {meditation.length}
+                    </Text>
+                  </View>
                 </View>
               </View>
+              
+              <TouchableOpacity 
+                style={styles.favoriteButton}
+                onPress={toggleFavorite}
+              >
+                <Heart 
+                  size={24}
+                  color={theme.accent}
+                  fill={favorite ? theme.accent : 'none'}
+                />
+              </TouchableOpacity>
             </View>
             
             <Text style={[styles.description, { color: theme.textSecondary }]}>
@@ -146,11 +168,12 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 20,
+    top: 48,
     left: 16,
-    zIndex: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  backButtonInner: {
+  buttonInner: {
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -165,13 +188,20 @@ const styles = StyleSheet.create({
   headerContainer: {
     paddingHorizontal: Spacing.md,
   },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: Spacing.md,
+  },
+  titleContainer: {
+    flex: 1,
+    marginRight: Spacing.md,
+  },
   title: {
     fontSize: Typography.fontSizes.xxl,
     fontFamily: 'Inter-Bold',
     marginBottom: Spacing.sm,
-  },
-  metaContainer: {
-    marginBottom: Spacing.md,
   },
   metaRow: {
     flexDirection: 'row',
@@ -197,10 +227,14 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSizes.sm,
     fontFamily: 'Inter-Regular',
   },
+  favoriteButton: {
+    padding: Spacing.sm,
+  },
   description: {
     fontSize: Typography.fontSizes.md,
     fontFamily: 'Inter-Regular',
     lineHeight: Typography.lineHeights.body * Typography.fontSizes.md,
+    marginBottom: Spacing.lg,
   },
   infoSection: {
     paddingHorizontal: Spacing.md,
