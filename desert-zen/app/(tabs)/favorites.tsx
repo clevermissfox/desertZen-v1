@@ -6,7 +6,7 @@ import { useFavoriteMeditations } from "../../hooks/useFavoriteMeditations";
 import { meditations } from "../../data/meditations";
 import Spacing from "../../constants/Spacing";
 import Typography from "../../constants/Typography";
-import { Meditation } from "../../types/Meditation";
+import { Meditation } from "@/types/Meditation";
 import { Ionicons } from "@expo/vector-icons";
 // import { Heart } from 'lucide-react-native';
 
