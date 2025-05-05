@@ -24,9 +24,9 @@ export default function ThemeToggle() {
     >
       <View style={styles.iconContainer}>
         {isDark ? (
-          <Ionicons name="moon" size={18} color="#fff" />
-        ) : (
           <Ionicons name="sunny" size={18} color="#fff" />
+        ) : (
+          <Ionicons name="moon" size={18} color="#fff" />
         )}
       </View>
       <Text style={[styles.text, { color: "#fff" }]}>
