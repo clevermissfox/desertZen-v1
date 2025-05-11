@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  StatusBar,
-  TouchableOpacity,
-} from "react-native";
-import { useLocalSearchParams, useRouter, Stack } from "expo-router";
-import { useTheme } from "../../hooks/useTheme";
-import { AudioPlayerControls } from "../../components/AudioPlayerControls";
-import { getMeditationById } from "../../data/meditations";
-import Spacing from "../../constants/Spacing";
-import Typography from "../../constants/Typography";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import React, { useEffect } from "react";
+import {
+  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { AudioPlayerControls } from "../../components/AudioPlayerControls";
+import Spacing from "../../constants/Spacing";
+import Typography from "../../constants/Typography";
+import { getMeditationById } from "../../data/meditations";
 import { useFavoriteMeditations } from "../../hooks/useFavoriteMeditations";
+import { useTheme } from "../../hooks/useTheme";
 
 export default function MeditationScreen() {
   const { id } = useLocalSearchParams();

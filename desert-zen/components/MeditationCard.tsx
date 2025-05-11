@@ -1,20 +1,20 @@
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
+  Dimensions,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Image,
-  Dimensions,
 } from "react-native";
-import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 // import { Clock, Heart } from "lucide-react-native";
-import { useTheme } from "../hooks/useTheme";
+import { Meditation } from "@/types/Meditation";
 import Spacing from "../constants/Spacing";
 import Typography from "../constants/Typography";
-import { Meditation } from "@/types/Meditation";
 import { useFavoriteMeditations } from "../hooks/useFavoriteMeditations";
+import { useTheme } from "../hooks/useTheme";
 
 interface MeditationCardProps {
   meditation: Meditation;

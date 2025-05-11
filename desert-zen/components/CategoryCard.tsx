@@ -1,13 +1,13 @@
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 // import { Moon, Sun, Wind, Activity, Map } from "lucide-react-native";
-import { useTheme } from "../hooks/useTheme";
+import { Category } from "@/types/Meditation";
 import Spacing from "../constants/Spacing";
 import Typography from "../constants/Typography";
-import { Category } from "@/types/Meditation";
 import { getMeditationsByCategory } from "../data/meditations";
+import { useTheme } from "../hooks/useTheme";
 
 interface CategoryCardProps {
   category: Category;
@@ -37,6 +37,14 @@ export default function CategoryCard({ category }: CategoryCardProps) {
         return <Ionicons name="pulse" color={theme.primary} size={24} />;
       case "map":
         return <Ionicons name="map" color={theme.primary} size={24} />;
+      case "logo-electron":
+        return (
+          <Ionicons name="logo-electron" color={theme.primary} size={24} />
+        );
+      case "female-outline":
+        return (
+          <Ionicons name="female-outline" color={theme.primary} size={24} />
+        );
       default:
         return <Ionicons name="sunny" color={theme.primary} size={24} />;
     }
