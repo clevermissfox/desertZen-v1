@@ -9,11 +9,11 @@ export const lightTheme = {
   accentLight: "#E28783", // =
   accentDark: "#B94C46", // =
   background: "#E0DDD1", // =
-  card: "#EEECE8", // =
+  card: "#efece7", // =
   text: "#322E26", // Using secondary as text color =
   textSecondary: "#655F52", // Using secondaryLight =
   textTertiary: "#A7A7A4", // Lighter shade of secondary =
-  border: "#CDCDCB", //  =
+  border: "#d4cec4", //  =
   notification: "#BF4A40", // =
   success: "#4CAF50",
   error: "#F44336",

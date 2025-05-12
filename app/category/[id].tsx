@@ -76,7 +76,7 @@ export default function CategoryScreen() {
                     key={index}
                     style={[
                       styles.lengthBadge,
-                      { backgroundColor: theme.secondary },
+                      { backgroundColor: theme.secondaryDark },
                     ]}
                   >
                     <Text style={[styles.lengthText, { color: "#fff" }]}>

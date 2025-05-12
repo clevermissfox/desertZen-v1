@@ -145,11 +145,11 @@ export function AudioPlayerControls({
           disabled={isLoading}
         >
           {isLoading ? (
-            <ActivityIndicator color={theme.card} size="small" />
+            <ActivityIndicator color={theme.textTertiary} size="small" />
           ) : isPlaying ? (
-            <Ionicons name="pause" color={theme.card} size={28} />
+            <Ionicons name="pause" color={theme.textSecondary} size={28} />
           ) : (
-            <Ionicons name="play" color={theme.card} size={28} />
+            <Ionicons name="play" color={theme.textSecondary} size={28} />
           )}
         </TouchableOpacity>
 

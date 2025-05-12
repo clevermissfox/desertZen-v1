@@ -19,17 +19,17 @@ export default function ThemeToggle() {
 
   return (
     <TouchableOpacity
-      style={[styles.container, { backgroundColor: theme.secondary }]}
+      style={[styles.container, { backgroundColor: theme.card }]}
       onPress={toggleColorScheme}
     >
       <View style={styles.iconContainer}>
         {isDark ? (
-          <Ionicons name="sunny" size={18} color="#fff" />
+          <Ionicons name="sunny" size={18} color={theme.accent} />
         ) : (
-          <Ionicons name="moon" size={18} color="#fff" />
+          <Ionicons name="moon" size={18} color={theme.accent} />
         )}
       </View>
-      <Text style={[styles.text, { color: "#fff" }]}>
+      <Text style={[styles.text, { color: theme.text }]}>
         {isDark ? "Light Mode" : "Dark Mode"}
       </Text>
     </TouchableOpacity>
