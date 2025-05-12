@@ -15,7 +15,7 @@ interface CategoryCardProps {
 
 export default function CategoryCard({ category }: CategoryCardProps) {
   const router = useRouter();
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
 
   // Get actual meditations for this category
   const categoryMeditations = getMeditationsByCategory(category.id);
@@ -78,7 +78,14 @@ export default function CategoryCard({ category }: CategoryCardProps) {
           {availableLengths.map((length, index) => (
             <View
               key={index}
-              style={[styles.lengthBadge, { backgroundColor: theme.secondary }]}
+              style={[
+                styles.lengthBadge,
+                {
+                  backgroundColor: isDark
+                    ? theme.secondaryDark
+                    : theme.textSecondary,
+                },
+              ]}
             >
               <Text style={[styles.lengthText, { color: "#fff" }]}>
                 {length}
