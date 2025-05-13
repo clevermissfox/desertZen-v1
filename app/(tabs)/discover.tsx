@@ -21,7 +21,7 @@ import Typography from "../../constants/Typography";
 import { Meditation } from "../../types/Meditation";
 
 export default function DiscoverScreen() {
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -69,11 +69,15 @@ export default function DiscoverScreen() {
                 styles.categoryButton,
                 selectedCategory === category.id
                   ? { backgroundColor: theme.accent }
-                  : { backgroundColor: theme.secondaryDark },
+                  : {
+                      backgroundColor: isDark
+                        ? theme.secondary
+                        : theme.secondaryLight,
+                    },
               ]}
               onPress={() => handleCategoryPress(category.id)}
             >
-              <Text style={[styles.categoryText, { color: "#fff" }]}>
+              <Text style={[styles.categoryText, { color: theme.neutral100 }]}>
                 {category.name}
               </Text>
             </TouchableOpacity>

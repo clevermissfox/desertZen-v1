@@ -28,7 +28,7 @@ export default function SearchBar({
       style={[
         styles.container,
         {
-          backgroundColor: isDark ? theme.secondaryDark : theme.card,
+          backgroundColor: isDark ? theme.secondary : theme.primaryLight,
           borderColor: theme.border,
         },
       ]}

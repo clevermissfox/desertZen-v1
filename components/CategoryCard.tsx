@@ -28,25 +28,23 @@ export default function CategoryCard({ category }: CategoryCardProps) {
   const getIcon = () => {
     switch (category.iconName) {
       case "sun":
-        return <Ionicons name="sunny" color={theme.primary} size={24} />;
+        return <Ionicons name="sunny" color={theme.accent} size={24} />;
       case "moon":
-        return <Ionicons name="moon" color={theme.primary} size={24} />;
+        return <Ionicons name="moon" color={theme.accent} size={24} />;
       case "wind":
-        return <Ionicons name="cloudy" color={theme.primary} size={24} />;
+        return <Ionicons name="cloudy" color={theme.accent} size={24} />;
       case "activity":
-        return <Ionicons name="pulse" color={theme.primary} size={24} />;
+        return <Ionicons name="pulse" color={theme.accent} size={24} />;
       case "map":
-        return <Ionicons name="map" color={theme.primary} size={24} />;
+        return <Ionicons name="map" color={theme.accent} size={24} />;
       case "logo-electron":
-        return (
-          <Ionicons name="logo-electron" color={theme.primary} size={24} />
-        );
+        return <Ionicons name="logo-electron" color={theme.accent} size={24} />;
       case "female-outline":
         return (
-          <Ionicons name="female-outline" color={theme.primary} size={24} />
+          <Ionicons name="female-outline" color={theme.accent} size={24} />
         );
       default:
-        return <Ionicons name="sunny" color={theme.primary} size={24} />;
+        return <Ionicons name="sunny" color={theme.accent} size={24} />;
     }
   };
 
@@ -82,12 +80,12 @@ export default function CategoryCard({ category }: CategoryCardProps) {
                 styles.lengthBadge,
                 {
                   backgroundColor: isDark
-                    ? theme.secondaryDark
+                    ? theme.secondary
                     : theme.textSecondary,
                 },
               ]}
             >
-              <Text style={[styles.lengthText, { color: "#fff" }]}>
+              <Text style={[styles.lengthText, { color: theme.neutral100 }]}>
                 {length}
               </Text>
             </View>
@@ -105,11 +103,11 @@ const styles = StyleSheet.create({
     padding: Spacing.md,
     marginBottom: Spacing.md,
     borderWidth: 1,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+    elevation: 1,
+    shadowColor: "#544F45",
+    // shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.02,
+    // shadowRadius: 2,
   },
   iconContainer: {
     width: 48,

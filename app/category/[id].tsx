@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { useLocalSearchParams, useRouter, Stack } from "expo-router";
 import { useTheme } from "../../hooks/useTheme";
 import { MeditationCard } from "../../components/MeditationCard";
@@ -7,15 +13,15 @@ import { categories } from "../../data/categories";
 import { getMeditationsByCategory } from "../../data/meditations";
 import Spacing from "../../constants/Spacing";
 import Typography from "../../constants/Typography";
-import { TouchableOpacity } from "react-native-gesture-handler";
+// import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import { ArrowLeft } from "lucide-react-native";
+// import { ArrowLeft } from "lucide-react-native";
 import { Meditation, MeditationLength } from "../../types/Meditation";
 
 export default function CategoryScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
 
   const category = categories.find((cat) => cat.id === id);
   const meditations = getMeditationsByCategory(id as string);
@@ -76,10 +82,16 @@ export default function CategoryScreen() {
                     key={index}
                     style={[
                       styles.lengthBadge,
-                      { backgroundColor: theme.secondaryDark },
+                      {
+                        backgroundColor: isDark
+                          ? theme.secondary
+                          : theme.textSecondary,
+                      },
                     ]}
                   >
-                    <Text style={[styles.lengthText, { color: "#fff" }]}>
+                    <Text
+                      style={[styles.lengthText, { color: theme.neutral100 }]}
+                    >
                       {length}
                     </Text>
                   </View>
@@ -89,7 +101,9 @@ export default function CategoryScreen() {
           </View>
         </View>
 
-        <View style={styles.divider} />
+        <View
+          style={[styles.divider, { backgroundColor: theme.textTertiary }]}
+        />
 
         <View style={styles.meditationsContainer}>
           <Text style={[styles.meditationsTitle, { color: theme.text }]}>
@@ -174,8 +188,7 @@ const styles = StyleSheet.create({
     fontFamily: "Inter-Medium",
   },
   divider: {
-    height: 8,
-    backgroundColor: "rgba(0, 0, 0, 0.05)",
+    height: 4,
   },
   meditationsContainer: {
     flex: 1,

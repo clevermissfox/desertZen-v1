@@ -19,7 +19,11 @@ export default function ThemeToggle() {
 
   return (
     <TouchableOpacity
-      style={[styles.container, { backgroundColor: theme.card }]}
+      style={[
+        styles.container,
+        { backgroundColor: isDark ? theme.secondaryLight : theme.primaryLight },
+        !isDark && { borderWidth: 1, borderColor: theme.border },
+      ]}
       onPress={toggleColorScheme}
     >
       <View style={styles.iconContainer}>

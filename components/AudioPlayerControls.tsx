@@ -138,7 +138,7 @@ export function AudioPlayerControls({
         <TouchableOpacity
           style={[
             styles.playButton,
-            { backgroundColor: theme.primary },
+            { backgroundColor: theme.accent },
             isLoading && { opacity: 0.7 },
           ]}
           onPress={handlePlayPause}

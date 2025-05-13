@@ -53,7 +53,7 @@ export default function HomeScreen() {
         >
           <Text style={styles.heroText}>Find your inner peace</Text>
           <TouchableOpacity
-            style={[styles.heroButton, { backgroundColor: theme.primary }]}
+            style={[styles.heroButton, { backgroundColor: theme.accent }]}
             onPress={() => router.push("/discover")}
           >
             <Text style={styles.heroButtonText}>Explore Meditations</Text>

@@ -53,7 +53,7 @@ export default function ProfileScreen() {
             value={toggleValue}
             onValueChange={onToggleChange}
             trackColor={{
-              false: isDark ? theme.border : "#D1D5DB",
+              false: isDark ? theme.border : theme.primary,
               true: theme.accent,
             }}
             thumbColor={Platform.select({
@@ -95,7 +95,7 @@ export default function ProfileScreen() {
         Create an account to save your favorites and track your progress.
       </Text>
       <TouchableOpacity
-        style={[styles.loginButton, { backgroundColor: theme.primary }]}
+        style={[styles.loginButton, { backgroundColor: theme.accent }]}
         onPress={() => setIsLoggedIn(true)} // Just for demo
       >
         <Text style={styles.loginButtonText}>Sign In / Sign Up</Text>
@@ -136,7 +136,7 @@ export default function ProfileScreen() {
     >
       <View style={styles.header}>
         <Text style={[styles.title, { color: theme.text }]}>Profile</Text>
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
       </View>
 
       {isLoggedIn ? <UserProfileView /> : <GuestView />}
@@ -154,7 +154,11 @@ export default function ProfileScreen() {
         >
           <SettingItem
             icon={
-              <Ionicons name="notifications" size={22} color={theme.primary} />
+              <Ionicons
+                name="notifications"
+                size={22}
+                color={theme.accentLight}
+              />
             }
             title="Notifications"
             showToggle={true}
@@ -164,7 +168,7 @@ export default function ProfileScreen() {
           />
 
           <SettingItem
-            icon={<Ionicons name="moon" size={22} color={theme.primary} />}
+            icon={<Ionicons name="moon" size={22} color={theme.accentLight} />}
             title="Dark Mode"
             showToggle={true}
             toggleValue={isDark}
@@ -173,7 +177,9 @@ export default function ProfileScreen() {
           />
 
           <SettingItem
-            icon={<Ionicons name="download" size={22} color={theme.primary} />}
+            icon={
+              <Ionicons name="download" size={22} color={theme.accentLight} />
+            }
             title="Auto Download"
             showToggle={true}
             toggleValue={autoDownloadEnabled}
@@ -194,14 +200,18 @@ export default function ProfileScreen() {
         >
           <SettingItem
             icon={
-              <Ionicons name="volume-high" size={22} color={theme.primary} />
+              <Ionicons
+                name="volume-high"
+                size={22}
+                color={theme.accentLight}
+              />
             }
             title="Audio Quality"
             onPress={() => {}}
           />
 
           <SettingItem
-            icon={<Ionicons name="time" size={22} color={theme.primary} />}
+            icon={<Ionicons name="time" size={22} color={theme.accentLight} />}
             title="Sleep Timer"
             onPress={() => {}}
           />
@@ -216,7 +226,9 @@ export default function ProfileScreen() {
           ]}
         >
           <SettingItem
-            icon={<Ionicons name="settings" size={22} color={theme.primary} />}
+            icon={
+              <Ionicons name="settings" size={22} color={theme.accentLight} />
+            }
             title="About Desert Zen"
             onPress={() => {}}
           />

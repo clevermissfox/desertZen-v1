@@ -88,7 +88,7 @@ export default function MeditationCard({
             <View
               style={[styles.categoryBadge, { backgroundColor: theme.accent }]}
             >
-              <Text style={[styles.categoryText, { color: "#fff" }]}>
+              <Text style={[styles.categoryText, { color: theme.neutral100 }]}>
                 {meditation.category.replace(/-/g, " ")}
               </Text>
             </View>
@@ -111,11 +111,10 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginBottom: Spacing.md,
     borderWidth: 1,
-    elevation: 3,
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 4,
+    elevation: 1,
+    shadowColor: "#544F45",
+    // shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.02,
   },
   image: {
     width: "100%",
