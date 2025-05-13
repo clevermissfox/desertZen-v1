@@ -116,9 +116,9 @@ export function AudioPlayerControls({
         value={duration ? position / duration : 0}
         onSlidingStart={onSlidingStart}
         onSlidingComplete={onSlidingComplete}
-        minimumTrackTintColor={theme.primary}
-        maximumTrackTintColor={theme.border}
-        thumbTintColor={theme.primary}
+        minimumTrackTintColor={theme.accent}
+        maximumTrackTintColor={theme.textTertiary}
+        thumbTintColor={theme.accent}
         disabled={isLoading}
       />
 
